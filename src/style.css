@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  position: relative;
+}
+#stage {
+  width: 105%;
+  height: 36rem;
+  z-index: -1;
+}
+.startBtn {
+  position: absolute;
+  width: 10rem;
+  height: 3rem;
+  z-index: 1;
+  top: 3rem;
+  /* left: 23rem; */
+  margin-left: 50%;
+  margin-right: 50%;
+  transition: 3s ease-in-out;
+}
+.startBtnGetOut {
+  position: absolute;
+  width: 10rem;
+  height: 3rem;
+  z-index: 1;
+  top: 3rem;
+  left: 63rem;
+  margin-left: 50%;
+  margin-right: 50%;
+  transition: 3s ease-in-out;
+}
+#player1 {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  z-index: 1;
+  /* background-color: black; */
+  bottom: 4rem;
+  left: 7rem;
+}
+#player2 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  z-index: 1;
+  /* background-color: black; */
+  bottom: 4rem;
+  right: 7rem;
+}
+#span {
+  position: absolute;
+  /* background-color: black; */
+  font-size: 1.7rem;
+  text-align: center;
+  top: 10rem;
+  left: 20rem;
+  width: 15rem;
+  height: 5rem;
+}
