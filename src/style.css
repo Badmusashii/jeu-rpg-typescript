@@ -8,6 +8,28 @@ body {
   overflow: hidden;
   position: relative;
 }
+.stageChoice {
+  z-index: 5;
+  position: absolute;
+  display: flex;
+  top: 10rem;
+  width: 600px;
+  justify-content: space-around;
+}
+.stageChoiceIsGetOut {
+  z-index: -5;
+  position: absolute;
+  display: flex;
+  top: 10rem;
+  left: -50rem;
+  width: 600px;
+  justify-content: space-around;
+}
+.stageChoice img {
+  cursor: pointer;
+  width: 100px;
+}
+
 #stage {
   width: 105%;
   height: 741px;
@@ -15,13 +37,11 @@ body {
 }
 .startBtn {
   position: absolute;
+  cursor: pointer;
   width: 200px;
-  height: 3rem;
+  height: 5rem;
   z-index: 1;
   top: 3rem;
-  /* left: -3rem; */
-  /* margin-left: 50%;
-  margin-right: 50%; */
   transition: 2s ease-in-out;
 }
 .startBtnGetOut {
@@ -40,7 +60,6 @@ body {
   width: 250px;
   height: 250px;
   z-index: 1;
-  /* background-color: black; */
   bottom: 4rem;
   left: 7rem;
 }
@@ -49,13 +68,13 @@ body {
   width: 200px;
   height: 200px;
   z-index: 1;
-  /* background-color: black; */
   bottom: 4rem;
   right: 7rem;
 }
 #span {
   position: absolute;
-  /* background-color: black; */
+  color: white;
+  font-family: "Caprasimo", cursive;
   font-size: 1.7rem;
   text-align: center;
   top: 10rem;

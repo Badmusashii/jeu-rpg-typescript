@@ -8,11 +8,45 @@ const player2: HTMLImageElement | null = document.getElementById(
 ) as HTMLImageElement;
 let span: HTMLElement | null = document.getElementById("span");
 const body: HTMLElement = document.body;
+// const selectStage: HTMLElement | null = document.getElementById("stageChoice");
+const selectStage: NodeListOf<HTMLElement> | null =
+  document.querySelectorAll(".selectStageMoment");
+// document.querySelector(".selectStageMoment");
+const selectStageId: HTMLElement | null =
+  document.getElementById("stageChoice");
 let screenHeight: number = window.innerHeight;
 let screenWidth: number = window.innerWidth;
 let stage: HTMLImageElement | null = document.getElementById(
   "stage"
 ) as HTMLImageElement;
+const numberOfStage: number = Math.floor(Math.random() * 5) + 1;
+console.log(selectStageId);
+
+if (startBtn?.className !== "startBtnGetOut") {
+  selectStage?.forEach((stageselect) => {
+    stageselect.addEventListener("click", (e) => {
+      const target = e.target as HTMLImageElement;
+      if (e.target instanceof HTMLImageElement) {
+        console.log(e.target.id);
+        if (stage && e.target.id === "stage1") {
+          stage.src = e.target.src;
+        }
+        if (stage && e.target.id === "stage2") {
+          stage.src = e.target.src;
+        }
+        if (stage && e.target.id === "stage3") {
+          stage.src = e.target.src;
+        }
+        if (stage && e.target.id === "stage4") {
+          stage.src = e.target.src;
+        }
+        if (stage && e.target.id === "stage5") {
+          stage.src = e.target.src;
+        }
+      }
+    });
+  });
+}
 // ____________________________________________________________
 
 /* Ajustement dynamique des éléments en fonction de 
@@ -28,6 +62,9 @@ if (span) {
 }
 if (startBtn) {
   startBtn.style.left = `${screenWidth / 2 - 100}px`;
+}
+if (selectStageId) {
+  selectStageId.style.left = `${screenWidth / 2 - 300}px`;
 }
 // -------------------------------------
 
@@ -296,7 +333,9 @@ function fight(fighter1: Hero, fighter2: Hero) {
         // SettimeOut pour laisse les temps aux animations
         setTimeout(() => {
           if (span)
-            span.textContent = `${fighter2.getName()} à LARGEMENT dominer ce combat !`;
+            span.textContent = `${fighter2
+              .getName()
+              .toUpperCase()} à LARGEMENT dominer ce combat !`;
         }, 1000);
         console.log(`${fighter2.getName()} à dominer ce combat !`);
       } else if (!fighter2.isAlive()) {
@@ -308,7 +347,8 @@ function fight(fighter1: Hero, fighter2: Hero) {
 
 // Ecouteur d'evenement pour lance le combat et les differentes animations
 startBtn?.addEventListener("click", (e) => {
-  // startBtn.classList.add("startBtnGetOut");
+  selectStageId?.classList.remove("stageChoice");
+  selectStageId?.classList.add("stageChoiceIsGetOut");
   if (startBtn) {
     startBtn.style.left = "-90rem";
   }

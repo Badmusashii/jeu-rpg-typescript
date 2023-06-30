@@ -19,9 +19,40 @@ var player1 = document.getElementById("player1");
 var player2 = document.getElementById("player2");
 var span = document.getElementById("span");
 var body = document.body;
+// const selectStage: HTMLElement | null = document.getElementById("stageChoice");
+var selectStage = document.querySelectorAll(".selectStageMoment");
+// document.querySelector(".selectStageMoment");
+var selectStageId = document.getElementById("stageChoice");
 var screenHeight = window.innerHeight;
 var screenWidth = window.innerWidth;
 var stage = document.getElementById("stage");
+var numberOfStage = Math.floor(Math.random() * 5) + 1;
+console.log(selectStageId);
+if ((startBtn === null || startBtn === void 0 ? void 0 : startBtn.className) !== "startBtnGetOut") {
+    selectStage === null || selectStage === void 0 ? void 0 : selectStage.forEach(function (stageselect) {
+        stageselect.addEventListener("click", function (e) {
+            var target = e.target;
+            if (e.target instanceof HTMLImageElement) {
+                console.log(e.target.id);
+                if (stage && e.target.id === "stage1") {
+                    stage.src = e.target.src;
+                }
+                if (stage && e.target.id === "stage2") {
+                    stage.src = e.target.src;
+                }
+                if (stage && e.target.id === "stage3") {
+                    stage.src = e.target.src;
+                }
+                if (stage && e.target.id === "stage4") {
+                    stage.src = e.target.src;
+                }
+                if (stage && e.target.id === "stage5") {
+                    stage.src = e.target.src;
+                }
+            }
+        });
+    });
+}
 // ____________________________________________________________
 /* Ajustement dynamique des éléments en fonction de
 la taille ecran de l'utilisateur */
@@ -36,6 +67,9 @@ if (span) {
 }
 if (startBtn) {
     startBtn.style.left = "".concat(screenWidth / 2 - 100, "px");
+}
+if (selectStageId) {
+    selectStageId.style.left = "".concat(screenWidth / 2 - 300, "px");
 }
 // -------------------------------------
 // Variables pour les Intervales des animations
@@ -290,7 +324,9 @@ function fight(fighter1, fighter2) {
                 // SettimeOut pour laisse les temps aux animations
                 setTimeout(function () {
                     if (span)
-                        span.textContent = "".concat(fighter2.getName(), " \u00E0 LARGEMENT dominer ce combat !");
+                        span.textContent = "".concat(fighter2
+                            .getName()
+                            .toUpperCase(), " \u00E0 LARGEMENT dominer ce combat !");
                 }, 1000);
                 console.log("".concat(fighter2.getName(), " \u00E0 dominer ce combat !"));
             }
@@ -302,7 +338,8 @@ function fight(fighter1, fighter2) {
 }
 // Ecouteur d'evenement pour lance le combat et les differentes animations
 startBtn === null || startBtn === void 0 ? void 0 : startBtn.addEventListener("click", function (e) {
-    // startBtn.classList.add("startBtnGetOut");
+    selectStageId === null || selectStageId === void 0 ? void 0 : selectStageId.classList.remove("stageChoice");
+    selectStageId === null || selectStageId === void 0 ? void 0 : selectStageId.classList.add("stageChoiceIsGetOut");
     if (startBtn) {
         startBtn.style.left = "-90rem";
     }
