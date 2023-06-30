@@ -13,11 +13,32 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+// Variables pour la manipulation de DOM
 var startBtn = document.getElementById("startBtn");
 var player1 = document.getElementById("player1");
 var player2 = document.getElementById("player2");
 var span = document.getElementById("span");
-console.log(span);
+var body = document.body;
+var screenHeight = window.innerHeight;
+var screenWidth = window.innerWidth;
+var stage = document.getElementById("stage");
+// ____________________________________________________________
+/* Ajustement dynamique des éléments en fonction de
+la taille ecran de l'utilisateur */
+body.style.width = "".concat(screenWidth, "px");
+body.style.height = "".concat(screenHeight, "px");
+if (stage) {
+    stage.style.height = "".concat(screenHeight, "px");
+    stage.style.width = "".concat(screenWidth, "px");
+}
+if (span) {
+    span.style.left = "".concat(screenWidth / 2 - 150, "px");
+}
+if (startBtn) {
+    startBtn.style.left = "".concat(screenWidth / 2 - 100, "px");
+}
+// -------------------------------------
+// Variables pour les Intervales des animations
 var intervalSmoke;
 var intervalSmoke2;
 var intervalPlayer1Moved;
@@ -25,12 +46,15 @@ var intervalPlayer2Moved;
 var intervalPlayer1Attack;
 var intervalPlayer2Attack;
 var intervalPlayer1Death;
+// Varaibles pour les compteurs des intervales
 var i = 1;
 var iattack = 1;
 var i2 = 1;
 var j = 1;
 var k = 1;
 var l = 1;
+// --------------------------------------------
+// Class principales "Hero" et "Weapon"
 var Hero = /** @class */ (function () {
     function Hero(name, power, life) {
         this.name = name;
@@ -46,6 +70,7 @@ var Hero = /** @class */ (function () {
         }
         return opponent.life;
     };
+    // Differents Get pour recuperer toutes les propriétées si besoin
     Hero.prototype.getLife = function () {
         return this.life;
     };
@@ -55,6 +80,7 @@ var Hero = /** @class */ (function () {
     Hero.prototype.getPower = function () {
         return this.power;
     };
+    // Set pour ajuster la vie en fonction du combat
     Hero.prototype.setLife = function (value) {
         this.life = value;
     };
@@ -76,6 +102,8 @@ var Weapon = /** @class */ (function () {
     }
     return Weapon;
 }());
+// -------------------------------------------
+// Les 3 class filles
 var HeroAxe = /** @class */ (function (_super) {
     __extends(HeroAxe, _super);
     function HeroAxe(name, power, life) {
@@ -84,10 +112,12 @@ var HeroAxe = /** @class */ (function (_super) {
         return _this;
     }
     HeroAxe.prototype.attack = function (opponent) {
+        // Choix de otus mettre dans des varibles pour une meilleurs visibilité
         var opponentlife = opponent.getLife();
         var opponentName = opponent.getName();
         var power = this.getPower();
         var dammage = this.weapon.dammage;
+        // -----------------------------------------------
         if (opponent instanceof HeroSword) {
             power = power + dammage * 2;
         }
@@ -136,9 +166,13 @@ var HeroSpear = /** @class */ (function (_super) {
     };
     return HeroSpear;
 }(Hero));
+// --------------------------------------------
+// Creation de mes 3 Heros
 var babou = new HeroAxe("babou", 10, 2000);
 var arthur = new HeroSword("Arthur", 10, 200);
 var lancelot = new HeroSpear("lancelot", 30, 150);
+// ----------------------------------------------
+// Differentes fonctions pour les animations sur le DOM
 function playerMoved() {
     intervalSmoke = setInterval(function () {
         if (player1) {
@@ -222,26 +256,38 @@ function playerMoved2() {
         }, 1000);
     }
 }
+// -----------------------------------------------------
+// Fonction pour les combat avec les differenes animations incluses
 function fight(fighter1, fighter2) {
+    // Animation de debut de combat
     playerMoved();
     playerMoved2();
+    // ---------------------------
+    // SetTimeOut pour laisser le temps à nos Heros de faire leurs animations
     setTimeout(function () {
         while (fighter1.isAlive() === true && fighter2.isAlive() === true) {
+            /* Arret des 1ers animations. Remise de "i" et "l" à 1
+             pour assurer le bon fonctionnement des prochaines animations */
             clearInterval(intervalPlayer1Moved);
             i = 1;
             fighter1.attack(fighter2);
             clearInterval(intervalPlayer2Moved);
             l = 1;
             fighter2.attack(fighter1);
+            // Lancement des conditions pour les differentes possibilité du combat
             if (!fighter1.isAlive() && !fighter2.isAlive()) {
                 console.log("Exequo");
             }
             else if (!fighter1.isAlive()) {
+                // Lancement des animations attack pour les 2 joueurs
                 player1Attack();
                 player2Attack();
+                // --------------------------------------------------
+                // SettimeOut pour laisse les temps aux animations
                 setTimeout(function () {
                     player1Death();
                 }, 700);
+                // SettimeOut pour laisse les temps aux animations
                 setTimeout(function () {
                     if (span)
                         span.textContent = "".concat(fighter2.getName(), " \u00E0 LARGEMENT dominer ce combat !");
@@ -254,13 +300,12 @@ function fight(fighter1, fighter2) {
         }
     }, 3500);
 }
+// Ecouteur d'evenement pour lance le combat et les differentes animations
 startBtn === null || startBtn === void 0 ? void 0 : startBtn.addEventListener("click", function (e) {
-    startBtn.classList.add("startBtnGetOut");
-    // player1Death();
-    // playerMoved();
-    // playerMoved2();
+    // startBtn.classList.add("startBtnGetOut");
+    if (startBtn) {
+        startBtn.style.left = "-90rem";
+    }
     fight(lancelot, babou);
-    // setTimeout(() => {
-    //   e.preventDefault();
-    // }, 1000);
 });
+// -----------------------------------------------------
